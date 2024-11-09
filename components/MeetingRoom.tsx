@@ -26,9 +26,15 @@ type CallLayoutType = "grid" | "speaker-left" | "speaker-right";
 
 const MeetingRoom = () => {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  // Fixed TypeScript error using optional chaining
-  const isPersonalRoom = !!searchParams?.get("personal");
+  // Add 'use client' directive if not already present at the top of your file
+  const params = useSearchParams();
+  // More defensive check for SSR and null cases
+  const isPersonalRoom = React.useMemo(() => {
+    if (typeof window === 'undefined') return false;
+    if (!params) return false;
+    return !!params.get("personal");
+  }, [params]);
+
   const [layout, setLayout] = useState<CallLayoutType>("speaker-left");
   const [showParticipants, setShowParticipants] = useState(false);
   const { useCallCallingState } = useCallStateHooks();
