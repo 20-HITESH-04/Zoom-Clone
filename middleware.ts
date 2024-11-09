@@ -7,6 +7,7 @@ const protectedRoutes = createRouteMatcher([
     '/personal-room',
     '/recordings',
     '/meeting(.*)',
+    '/pages/api/webhooks/clerk',
 ])
 
 export default clerkMiddleware((auth, req) => {
