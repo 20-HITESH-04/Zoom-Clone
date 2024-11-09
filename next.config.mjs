@@ -5,4 +5,12 @@ const nextConfig = {
     }
 };
 
+// next.config.js
+module.exports = {
+    experimental: {
+      esmExternals: "loose",
+      transpilePackages: ["svix"],  // or try true if "loose" doesn't work
+    },
+  };  
+
 export default nextConfig;
