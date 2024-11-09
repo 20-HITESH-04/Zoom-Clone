@@ -27,6 +27,7 @@ type CallLayoutType = "grid" | "speaker-left" | "speaker-right";
 const MeetingRoom = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  // @ts-ignore
   const isPersonalRoom = !!searchParams.get("personal"); //why we used double excalamation mark here? because we want to convert the value to boolean if it is undefined or null it will return false otherwise true
   const [layout, setLayout] = useState<CallLayoutType>("speaker-left");
   const [showParticipants, setShowParticipants] = useState(false);
