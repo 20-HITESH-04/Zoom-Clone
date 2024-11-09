@@ -1,3 +1,5 @@
+'use client';
+
 import { cn } from "@/lib/utils";
 import {
   DropdownMenu,
@@ -7,7 +9,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
 import {
   CallControls,
   CallParticipantsList,
@@ -26,15 +27,9 @@ type CallLayoutType = "grid" | "speaker-left" | "speaker-right";
 
 const MeetingRoom = () => {
   const router = useRouter();
-  // Add 'use client' directive if not already present at the top of your file
-  const params = useSearchParams();
-  // More defensive check for SSR and null cases
-  const isPersonalRoom = React.useMemo(() => {
-    if (typeof window === 'undefined') return false;
-    if (!params) return false;
-    return !!params.get("personal");
-  }, [params]);
-
+  const searchParams = useSearchParams();
+  // Fixed the type error by providing a default value
+  const isPersonalRoom = searchParams?.get("personal") ?? false;
   const [layout, setLayout] = useState<CallLayoutType>("speaker-left");
   const [showParticipants, setShowParticipants] = useState(false);
   const { useCallCallingState } = useCallStateHooks();
