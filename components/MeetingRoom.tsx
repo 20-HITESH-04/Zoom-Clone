@@ -27,7 +27,8 @@ type CallLayoutType = "grid" | "speaker-left" | "speaker-right";
 const MeetingRoom = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const isPersonalRoom = searchParams ? !!searchParams.get("personal") : false; //why we used double excalamation mark here? because we want to convert the value to boolean if it is undefined or null it will return false otherwise true
+  // Fixed TypeScript error using optional chaining
+  const isPersonalRoom = !!searchParams?.get("personal");
   const [layout, setLayout] = useState<CallLayoutType>("speaker-left");
   const [showParticipants, setShowParticipants] = useState(false);
   const { useCallCallingState } = useCallStateHooks();
@@ -35,25 +36,16 @@ const MeetingRoom = () => {
   const callingState = useCallCallingState();
   console.log(callingState);
 
-  //   if(callingState === CallingState.JOINING) return <Loader/>;
-
-  //   if(callingState === CallingState.LEFT) {
-  //     router.push("/");
-  //     return;}
-
   if (callingState !== CallingState.JOINED) return <Loader />;
 
   const CallLayout = () => {
     switch (layout) {
       case "grid":
         return <PaginatedGridLayout />;
-
       case "speaker-right":
         return <SpeakerLayout participantsBarPosition="left" />;
-
       case "speaker-left":
         return <SpeakerLayout participantsBarPosition="right" />;
-
       default:
         return <SpeakerLayout participantsBarPosition="right" />;
     }
@@ -84,7 +76,7 @@ const MeetingRoom = () => {
             </DropdownMenuTrigger>
           </div>
 
-          <DropdownMenuContent className="border-dark-1 bg-dark-1 text-white ">
+          <DropdownMenuContent className="border-dark-1 bg-dark-1 text-white">
             {["Grid", "Speaker-Left", "Speaker-Right"].map((item, index) => (
               <div key={index}>
                 <DropdownMenuItem
