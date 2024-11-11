@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import axios from 'axios';
 import cheerio from 'cheerio';
+import { connect } from '@/lib/db';
 
 const scrapeGuardianNews = async () => {
     const url = 'https://www.theguardian.com/international';
@@ -17,6 +18,7 @@ const scrapeGuardianNews = async () => {
 
     try {
         // Fetch the HTML with headers
+        connect();
         const { data } = await axios.get(url, { headers });
 
         // Load the HTML into Cheerio

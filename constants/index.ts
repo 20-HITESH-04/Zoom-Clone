@@ -29,6 +29,11 @@ export const sidebarLinks = [
         imgUrl: '/icons/newspaper-regular.svg',
         route:'/news'
     },
+    {
+        label:'Weather',
+        imgUrl: '/icons/sun-regular.svg',
+        route:'/weather'
+    },
 ]
 
 export const avatarImages = [
